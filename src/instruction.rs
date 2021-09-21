@@ -40,7 +40,7 @@ pub enum RoyaltyDistributorInstruction {
     },
 
     /// Withdraw instruction
-    /// Allow members to withdraw their shares from the shared account
+    /// Withdraw shares from the shared account
     ///
     /// Accounts expected:
     /// 0. `[signer]`

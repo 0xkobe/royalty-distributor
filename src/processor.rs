@@ -183,10 +183,10 @@ impl Processor {
         let shared_acc_data = TokenAccount::unpack(&shared_acct.data.borrow())?;
         let (pda, bump_seed) = Pubkey::find_program_address(&[b"royalty_distributor"], program_id);
 
-        // [Account 4] Token program account
+        // [Account 3] Token program account
         let token_program_acct = next_account_info(account_info_iter)?;
 
-        // [Account 5] The PDA account
+        // [Account 4] The PDA account
         let pda_acct = next_account_info(account_info_iter)?;
 
         // Calculate if the member can withdraw the amount requested
