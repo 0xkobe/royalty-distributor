@@ -1,4 +1,4 @@
-# Revenue Sharing Solana Program
+# Royalty Distributor Solana Program
 
 ### Environment Setup
 1. Install Rust from https://rustup.rs/
