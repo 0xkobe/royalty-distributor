@@ -1,4 +1,4 @@
-use arrayref::{array_ref, array_refs};
+// use arrayref::{array_ref, array_refs};
 use solana_program::program_error::ProgramError;
 
 use crate::error::RoyaltyDistributorError::InvalidInstruction;
@@ -25,16 +25,18 @@ pub enum RoyaltyDistributorInstruction {
     /// 3. `[]` The rent sysvar
     ///
     /// 4. `[]` The token program account
-    ///
-    /// 5. `[]` Main account of member 1
-    ///
-    /// 6. `[]` Main account of member 2
-    ///
+
     /// NOTES: This is a proof of concept that supports only 2 members
     ///
     InitRoyaltyDistributor {
         member_1_shares: u16,
         member_2_shares: u16,
+        member_3_shares: u16,
+        member_4_shares: u16,
+        member_5_shares: u16,
+        member_6_shares: u16,
+        member_7_shares: u16,
+        member_8_shares: u16,
     },
 
     /// Withdraw instruction
@@ -59,29 +61,25 @@ pub enum RoyaltyDistributorInstruction {
 
 impl RoyaltyDistributorInstruction {
     pub fn unpack(input: &[u8]) -> Result<Self, ProgramError> {
-        let (tag, rest) = input.split_first().ok_or(InvalidInstruction)?;
+        let (tag, _) = input.split_first().ok_or(InvalidInstruction)?;
 
         Ok(match tag {
-            0 => Self::unpack_royalty_distributor(rest),
+            0 => Self::unpack_royalty_distributor(),
             1 => Self::Withdraw {},
             _ => return Err(InvalidInstruction.into()),
         })
     }
 
-    /*
-     * Data has the following structure:
-     * Member 1 shares: u16 (2 bytes)
-     * Member 2 shares: u16 (2 bytes)
-     * Total length: 4 bytes
-     */
-    fn unpack_royalty_distributor(data: &[u8]) -> Self {
-        let data = array_ref![data, 0, 4];
-        let (member_1_shares_slice, member_2_shares_slice) = array_refs![data, 2, 2];
-        let member_1_shares = u16::from_le_bytes(*member_1_shares_slice);
-        let member_2_shares = u16::from_le_bytes(*member_2_shares_slice);
+    fn unpack_royalty_distributor() -> Self {
         Self::InitRoyaltyDistributor {
-            member_1_shares,
-            member_2_shares,
+            member_1_shares: 3800,
+            member_2_shares: 2000,
+            member_3_shares: 1000,
+            member_4_shares: 700,
+            member_5_shares: 700,
+            member_6_shares: 600,
+            member_7_shares: 600,
+            member_8_shares: 600,
         }
     }
 }
